@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using ExpenseTracker.Data;
 using ExpenseTracker.Models;
 
 namespace ExpenseTracker.Scripts
