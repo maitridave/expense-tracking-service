@@ -42,7 +42,7 @@ namespace ExpenseTracker.Controllers
             _context.Expenses.Add(expense);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetExpense", new { id = expense.Id }, expense);
+            return Ok();
         }
 
         // PUT: api/Expenses/5

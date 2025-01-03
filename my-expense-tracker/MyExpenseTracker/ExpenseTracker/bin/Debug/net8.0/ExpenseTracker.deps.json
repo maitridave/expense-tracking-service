@@ -12,9 +12,7 @@
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.0",
           "Microsoft.EntityFrameworkCore.Tools": "8.0.0",
           "Microsoft.OpenApi": "1.6.23",
-          "Swashbuckle.AspNetCore": "7.2.0",
-          "Swashbuckle.AspNetCore.SwaggerGen": "7.2.0",
-          "Swashbuckle.AspNetCore.SwaggerUI": "7.2.0"
+          "Swashbuckle.AspNetCore": "7.2.0"
         },
         "runtime": {
           "ExpenseTracker.dll": {}
