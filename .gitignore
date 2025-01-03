@@ -3,3 +3,8 @@
 /my-expense-tracker/backend/bin
 /my-expense-tracker/backend/.vs
 /my-expense-tracker/backend/obj
+/my-expense-tracker/frontend/node_modules
+/my-expense-tracker/backend-2/.vs
+/my-expense-tracker/backend-2/ExpenseTracker/.vs
+/my-expense-tracker/backend-2/ExpenseTracker/bin
+/my-expense-tracker/backend-2/ExpenseTracker/obj
