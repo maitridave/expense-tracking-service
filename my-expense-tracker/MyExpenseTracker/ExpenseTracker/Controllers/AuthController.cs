@@ -20,11 +20,11 @@ namespace ExpenseTracker.Controllers
         [HttpPost("SignIn")]
         public async Task<IActionResult> SignIn([FromBody] SignInModel model)
         {
-            var result = await _authService.SignInAsync(model.Email, model.Password, model.RememberMe);
+            var (result, user, token) = await _authService.SignInAsync(model.Email, model.Password, model.RememberMe);
 
             if (result)
             {
-                return Ok();
+                return Ok(new JsonResult(new { res = "Success", user, token }));
             }
 
             return Unauthorized();
@@ -38,7 +38,7 @@ namespace ExpenseTracker.Controllers
 
             if (result)
             {
-                return Ok();
+                return Ok(new JsonResult(new { res = "Success" }));
             }
 
             return BadRequest();
