@@ -13,9 +13,9 @@ namespace ExpenseTracker.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Profile>().ToTable("profiles");
-            modelBuilder.Entity<Category>().ToTable("categories");
-            modelBuilder.Entity<Expense>().ToTable("expenses");
+            modelBuilder.Entity<Profile>().ToTable("Profile");
+            modelBuilder.Entity<Category>().ToTable("Category");
+            modelBuilder.Entity<Expense>().ToTable("Expense");
         }
     }
 }
