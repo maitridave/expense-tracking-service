@@ -29,5 +29,19 @@ namespace ExpenseTracker.Controllers
 
             return Unauthorized();
         }
+
+        // POST: api/Auth/SignUp
+        [HttpPost("SignUp")]
+        public async Task<IActionResult> SignUp([FromBody] SignUpModel model)
+        {
+            var result = await _authService.SignUpAsync(model.Name, model.Email, model.Password);
+
+            if (result)
+            {
+                return Ok();
+            }
+
+            return BadRequest();
+        }
     }
 }
