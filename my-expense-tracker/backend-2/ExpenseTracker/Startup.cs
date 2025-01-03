@@ -15,14 +15,19 @@ using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using System;
+using ExpenseTracker.Services;
 
 namespace ExpenseTracker
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly IConfiguration _configuration;
+        private readonly IWebHostEnvironment _environment;
+
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
-            Configuration = configuration;
+            _configuration = configuration;
+            _environment = environment;
         }
 
         public IConfiguration Configuration { get; }
@@ -47,15 +52,41 @@ namespace ExpenseTracker
                     };
                 });
 
+            services.AddScoped<IAuthService, AuthService>();
+
             services.AddControllers();
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+                c.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = "My API",
-                    Version = "v1"
+                    Title = "ExpenseTracker API",
+                    Version = "v1",
+                    Description = "API for managing expenses",
+                    TermsOfService = new Uri("https://example.com/terms"),
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Support",
+                        Email = "support@example.com",
+                        Url = new Uri("https://example.com/support")
+                    },
+                    License = new OpenApiLicense
+                    {
+                        Name = "MIT",
+                        Url = new Uri("https://example.com/license")
+                    }
                 });
+            });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllOrigins",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                               .AllowAnyMethod()
+                               .AllowAnyHeader();
+                    });
             });
         }
 
@@ -73,12 +104,13 @@ namespace ExpenseTracker
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseCors("AllowAllOrigins");
+
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API v1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "ExpenseTracker API v1");
             });
-
 
             app.UseEndpoints(endpoints =>
             {
