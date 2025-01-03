@@ -1,0 +1,5 @@
+
+*.v2
+/my-expense-tracker/backend/bin
+/my-expense-tracker/backend/.vs
+/my-expense-tracker/backend/obj
