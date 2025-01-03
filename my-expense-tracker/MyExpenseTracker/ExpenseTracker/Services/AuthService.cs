@@ -14,10 +14,15 @@ namespace ExpenseTracker.Services
             _context = context;
         }
 
-        public async Task<bool> SignInAsync(string email, string password, bool rememberMe)
+        public async Task<(bool, Profile, string)> SignInAsync(string email, string password, bool rememberMe)
         {
             var user = await _context.Profiles.SingleOrDefaultAsync(u => u.Email == email && u.Password == password);
-            return user != null;
+            if (user != null)
+            {
+                var token = GenerateToken(user);
+                return (true, user, token);
+            }
+            return (false, null, null);
         }
 
         public async Task<bool> RegisterAsync(string email, string password)
@@ -57,6 +62,12 @@ namespace ExpenseTracker.Services
             await _context.SaveChangesAsync();
 
             return true;
+        }
+
+        private string GenerateToken(Profile user)
+        {
+            // Token generation logic here
+            return "generated_token";
         }
     }
 }
