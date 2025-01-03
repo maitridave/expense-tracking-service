@@ -27,7 +27,10 @@ namespace ExpenseTracker.Controllers
         public async Task<ActionResult<IEnumerable<Expense>>> GetExpenses()
         {
             var userId = new Guid(User.Identity.Name);
-            return await _context.Expenses.Where(e => e.UserId == userId).ToListAsync();
+
+            var exepenses =  await _context.Expenses.Where(e => e.UserId == userId).Include(x=>x.Category).ToListAsync();
+            exepenses.ForEach(x=>x.CategoryName = x.Category.Name);
+            return exepenses;
         }
 
         // POST: api/Expenses
@@ -42,7 +45,7 @@ namespace ExpenseTracker.Controllers
             _context.Expenses.Add(expense);
             await _context.SaveChangesAsync();
 
-            return Ok();
+            return Ok(new JsonResult(new { res = "Success" }));
         }
 
         // PUT: api/Expenses/5
